@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive BI Page</title>
+</head>
+<style>
+    /* Basic Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    padding: 0;
+    /* max-width: 1049px; */
+    /* height: 499px; */
+    /* border-radius: 21px 0px 0px 0px;
+    top: 480px;
+    left: 210px; */
+    /* width: 1110px; */
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--white-color);
+    z-index: 5;
+}
+
+@media screen and (min-width: 1118px) {
+    .nav {
+        height: calc(var(--header-height) + 2rem);
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .container {
+        margin-inline: auto;
+    }
+
+    .nav__toggle {
+        display: none;
+    }
+
+    .nav__list {
+        display: flex;
+        column-gap: 3rem;
+    }
+
+    .nav__link, .nav__list {
+        height: 100%;
+        padding: 0;
+    }
+
+    .dropdown__submenu, .nav__list {
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    .dropdown__item, .dropdown__subitem {
+        position: relative;
+    }
+
+    .nav__link, .nav__list {
+        height: 100%;
+        padding: 0;
+    }
+
+    .nav__link {
+        justify-content: initial;
+        column-gap: .25rem;
+    }
+
+    .dropdown__menu, .dropdown__submenu {
+        max-height: initial;
+        overflow: initial;
+        position: absolute;
+        left: 0;
+        top: 6rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .3s, top .3s;
+    }
+
+    .dropdown__item, .dropdown__subitem {
+        position: relative;
+    }
+
+    .dropdown__subitem .dropdown__link {
+        width: 250px;
+        font-size: 14px;
+    }
+
+    .dropdown__link, .dropdown__sublink {
+        width: 270px;
+        font-size: 14px;
+    }
+
+    .dropdown__submenu {
+        position: absolute;
+        left: 100%;
+        top: .5rem;
+        background-color: var(--white-color);
+        padding: 0;
+    }
+
+    .dropdown__menu, .dropdown__submenu {
+        max-height: initial;
+        overflow: initial;
+        position: absolute;
+        left: 0;
+        top: 6rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .3s, top .3s;
+    }
+
+    .dropdown__submenu, .nav__list {
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    .dropdown__menu, .dropdown__submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease-out;
+}
+
+.dropdown__item, .dropdown__subitem {
+        position: relative;
+    }
+    
+}
+
+.nav {
+    height: 100px;
+}
+
+.container {
+    max-width: 80vw;
+    margin-inline: 1.5rem;
+}
+
+.nav__data {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0 5px 0;
+}
+
+.nav__toggle {
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+
+.dropdown__item {
+    cursor: pointer;
+}
+
+.nav__link {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color .3s;
+}
+
+.dropdown__menu, .dropdown__submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease-out;
+}
+
+.dropdown__link, .dropdown__sublink {
+    padding: 1.25rem 1.25rem 1.25rem 2.5rem;
+    color: var(--black-color);
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+    font-weight: var(--font-semi-bold);
+    transition: background-color .3s;
+}
+
+.dropdown__link i, .dropdown__sublink i {
+    font-size: 1.25rem;
+    font-weight: initial;
+}
+
+.dropdown__add {
+    margin-left: auto;
+}
+
+ul.dropdown__submenu {
+    background: var(--white-color);
+}
+
+.dropdown__sublink {
+    background-color: var(--black-color-lighten);
+}
+
+.dropdown__link, .dropdown__sublink, .nav__link, .nav__link:hover {
+    background-color: var(--white-color);
+}
+
+.dropdown__sublink i {
+    font-size: 1.25rem;
+    font-weight: initial;
+}
+
+
+
+/* coment line--------------------------------------------------------------------- */
+
+.cargowise-section {
+    padding: 40px 100px;
+    text-align: center;
+}
+
+.cargowise-section h1 {
+    font-size: 53.64px;
+    color: #1D2B36;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+ .highlight {
+    color: #0565FF; /* Blue color for CargoWise One */
+}
+
+.cargowise-section p {
+    font-size: 14px;
+    color: #1D2B36;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.explore-btn {
+    padding: 12px 44px;
+    background-color: #0565FF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16.5px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    position: relative;
+    background-color: #F9F9F9; /* Optional background */
+    padding: 50px;
+    border-radius: 15px;
+    width: 75%;
+}
+
+.text-content {
+    flex: 1;
+    padding-right: 27px;
+}
+
+.text-content h1 {
+    font-size: 32.58px;
+    margin-bottom: 35px;
+}
+
+.text-content p {
+    font-size: 14px;
+    text-align: justify; /* Justify paragraphs */
+    margin-bottom: 30px;
+}
+
+.image-content {
+    flex: 0 0 408px; /* Fixed width for the image */
+}
+
+.image-content img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-width: 408px;
+    max-height: 458px;
+    border-radius: 10px; /* Optional border-radius */
+    margin-left: 40px;
+}
+
+.cargo-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 70px;
+    gap: 20px;
+}
+
+.cargo-part1 {
+    flex: 1 1 40%; /* Takes more space vertically */
+}
+
+.cargo-part2, .cargo-part3 {
+    flex: 1 1 30%;
+}
+
+.cargo-part1 h2 {
+    font-size: 38.46px;
+    /* line-height: 1.5; */
+    margin-bottom: 20px;
+    width: 550px;
+    margin-top: 10px;
+    /* margin-left: -50px; */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ ul li {
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.text-container ul li {
+    font-size: 14px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.check-icon {
+    width: 20px;  /* Adjust size as needed */
+    height: 20px;
+    margin-right: 10px;
+}
+
+.modules-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 40px 40px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    color: #FFFFFF;
+}
+
+.module-container {
+    flex: 1;
+    padding: 20px 40px;
+    border-radius: 15px;
+    background-color: #000000;
+    padding-bottom: 60px;
+}
+
+.module-container h3 {
+    font-size: 26px;
+    line-height: 1.4;
+    margin-top: 45px;
+    margin-bottom: 40px;
+}
+
+.module-container1 {
+    flex: 1;
+    padding: 20px 40px;
+    border-radius: 15px;
+    background-color: #000000;
+}
+
+.module-container1 h3 {
+    font-size: 26px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+/* Styling for the module items */
+.module-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.module-item {
+    background-color: #333;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 15px;
+}
+
+.module-item:nth-child(1) {
+    color: #D341A5;
+}
+
+.module-item:nth-child(2) {
+    color: #F5821A;
+}
+
+.module-item:nth-child(3) {
+    color: #9747FF;
+}
+
+.module-item:nth-child(4) {
+    color: #489F3C;
+}
+
+.module-item:nth-child(5) {
+    color: #D341A5;
+}
+
+.module-item:nth-child(6) {
+    color: #0565FF;
+}
+
+.module-item:nth-child(7) {
+    color: #F5821A;
+}
+
+.module-item:nth-child(8) {
+    color: #489F3C;
+}
+
+
+.content-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 80px;
+    gap: 20px;
+}
+
+/* Left text container */
+.text-container {
+    width: 50%;
+}
+
+.text-container h1 {
+    font-size: 34px;
+    margin-bottom: 20px;
+}
+
+.text-container p {
+    text-align: justify;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.custom-line-height {
+    line-height: 2; /* Adjust the value as needed */
+}
+
+.custom-line-height .check-icon{
+    margin-bottom: 30px;
+}
+
+/* Right image container */
+.image-container {
+    width: 50%;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    /* border-radius: 10px; */
+}
+
+.stats-section {
+    text-align: center;
+    background-color: #F9F9F9;  /* Light background color */
+    padding: 40px 0;
+    border-radius: 15px;
+    margin: 0 auto;
+    max-width: 92%;
+}
+
+/* Heading styles */
+.stats-section h2 {
+    font-size: 39px;
+    font-weight: 600;
+    color: #1D2B36;
+    margin-bottom: -10px;
+}
+
+/* Container for the statistic items */
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 0 80px;
+    /* flex-wrap: wrap; */
+}
+
+/* Individual statistic card */
+.stat-item {
+    /* flex: 1 1 22%; */
+    border-radius: 10px;
+    /* padding: 20px; */
+    text-align: left;
+}
+
+.stat-item h3 {
+    font-size: 55.5px;
+    font-weight: 700;
+    color: #0565FF; /* Blue color for the numbers */
+    margin-bottom: 10px;
+}
+
+.stat-item p {
+    font-size: 21.5px;
+    font-weight: 700;
+    color: #1D2B36;
+}
+
+.backgroundImg {
+    display: flex;
+    background-image: url('../../../assets/Background.png');
+    background-size: cover;
+    padding: 10px;
+    border-radius: 10px;
+    color: #F5F5F5;
+}
+
+.backgroundImg1 {
+    /* background-image: white; */
+    padding: 80px 100px;
+}
+
+.backgroundImg-content {
+    width: 75%;
+    padding-right: 20px; /* Space between text and button */
+    font-size: 35.5px;
+    font-stretch: ultra-expanded;
+    padding-left: 10%;
+}
+
+.button-container {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+}
+
+.call-button {
+    background-color: #0565FF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 30px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.email-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the email to the right */
+    padding: 20px 100px;
+    background-color: #FFFFFF; /* Optional background color */
+    border-top: 1px solid #E5E9EC; /* Optional border for separation */
+    border-bottom: 1px solid #E5E9EC;
+}
+
+.email-text a {
+    color: #0565FF; /* Link color */
+    text-decoration: none; /* Remove underline */
+    font-size: 15px; /* Font size */
+}
+
+.email-text a:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+
+    body {
+    width: 100%;
+}
+
+    .cargowise-section {
+        padding: 20px;
+    }
+
+    .cargowise-section h1 {
+        font-size: 24px;
+    }
+
+    .cargowise-section p {
+        font-size: 14px;
+    }
+
+    .explore-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .custom-section {
+        flex-direction: column; /* Stack on smaller screens */
+        height: auto; /* Let height adjust naturally */
+        padding: 15px;
+    }
+
+    .text-content {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .image-content {
+        flex: 1;
+        max-width: 100%; /* Allow the image to resize */
+        display: flex;
+        justify-content: center;
+    }
+
+    .image-content img {
+        max-width: 90%; /* Scale down image for smaller screens */
+    }
+
+    .cargo-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cargo-part1, .cargo-part2, .cargo-part3 {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    ul li {
+        font-size: 16px;
+    }
+
+    .check-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .modules-section {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    .module-item {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .content-section {
+        flex-direction: column; /* Stack on smaller screens */
+        height: auto; /* Let height adjust naturally */
+    }
+
+    .text-container {
+    width: 100%;
+    }
+
+    .image-container {
+    width: 100%;
+    }
+
+    .stats-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .stat-item {
+        flex: 1 1 100%; /* Stacking items vertically */
+    }
+
+    .stats-section h2 {
+        font-size: 20px;
+    }
+
+    .stat-item h3 {
+        font-size: 28px;
+    }
+
+    .stat-item p {
+        font-size: 14px;
+    }
+
+    .backgroundImg {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .backgroundImg-content, .button-container {
+        width: 100%;
+        font-size: 18px;
+        /* text-align: center; */
+    }
+
+    .call-button {
+        font-size: 12px;
+    }
+
+    .button-container {
+        margin-top: 15px; /* Space between text and button on smaller screens */
+    }
+
+    .email-container {
+        justify-content: center; /* Center the email on smaller screens */
+    }
+
+    .email-text a {
+        font-size: 0.9rem; /* Slightly smaller font size on mobile */
+    }
+
+}
+
+@media (max-width: 480px) {
+    .cargowise-section h1 {
+        font-size: 20px;
+    }
+
+    .cargowise-section p {
+        font-size: 13px;
+    }
+
+    .explore-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .text-content h1 {
+        font-size: 20px;
+    }
+
+    .text-content p {
+        font-size: 14px;
+    }
+
+    .image-content img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .cargo-part1 h2 {
+        font-size: 20px;
+    }
+
+    ul li {
+        font-size: 14px;
+    }
+
+    .check-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .module-item {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+}
+
+</style>
+<html>
+<body>
+<section class="cargowise-section">
+    <h1>Get the best out of <span class="highlight">CargoWise One</span> <br>with our support and services</h1>
+    <p>CargoWise One is the world’s leading supply chain industry ERP from WiseTech Global, and we can help you <br>maximize its usability with end-to-end implementation, customization, configuration, integration, automation, RPA/<br>API services, and more.</p>
+    <button class="explore-btn">Explore More</button>
+</section>
+
+<section class="custom-section">
+    <div class="text-content">
+        <h1>What is <span class="highlight">CargoWise One?</span></h1>
+        <p>CargoWise One is a leading cloud-based transport management system (TMS) used by over 80% of the top 50 global 3PLs. It’s a single-platform solution designed by the WiseTech team, formerly known as ediEnterprise Logistics, to streamline logistics operations for local supply chain providers, global freight forwarders, and everything in between. </p>
+        <p>The gigantic ERP eliminates the need for multiple software and databases by providing a single database that can be accessed by multiple users, functions, countries, offices, and languages. For instance, when a purchase order (PO) is entered in CW1 or received via EDI from an operator, the system automatically notifies the required personnel. Everyone can access the same data at the same time. </p>
+        <p>With CargoWise One, you can manage freight, integrate with other systems, and consolidate data across your entire organization. It provides specialized tools for various aspects of logistics, including global forwarding, trade compliance, warehouse management, parcel delivery, and supply chain optimization.</p>
+    </div>
+    <div class="image-content">
+    <img src="../../../assets/ManWithLap.png" alt="Image description">
+    </div>
+</section>
+
+<section class="cargo-section">
+    <div class="cargo-part1">
+        <h2>Why is <span class="highlight">CargoWise One</span> <br />attractive to customers?</h2>
+    </div>
+    <div class="cargo-part2">
+        <ul>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Reduction in costs</li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Productivity gains </li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Seamless integrations</li>
+        </ul>
+    </div>
+    <div class="cargo-part3">
+        <ul>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Reduced errors </li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Risk mitigation </li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Scalability and expansion</li>
+        </ul>
+    </div>
+</section>
+
+<section class="modules-section">
+    <div class="module-container">
+        <h3>Integrated modules and key logistics <br>transactions covered by <span class="highlight">CargoWise One</span></h3>
+        <div class="module-items">
+            <div class="module-item">Freight Forwarding</div>
+            <div class="module-item">Customs Clearance</div>
+            <div class="module-item">Liner & Agency</div>
+            <div class="module-item">Land Transportation</div>
+            <div class="module-item">Geo Compliance</div>
+            <div class="module-item">Warehousing</div>
+            <div class="module-item">Container Freight Station</div>
+            <div class="module-item">Track, Trace & Manage</div>
+        </div>
+    </div>
+    <div class="module-container1">
+        <h3>Integrated modules for enterprise-wide <br><span class="highlight">administration, accounting and <br>management</span></h3>
+        <div class="module-items">
+            <div class="module-item">Accounting & Reporting</div>
+            <div class="module-item">Customer Relationship Management</div>
+            <div class="module-item">Workflow</div>
+            <div class="module-item">Integrated Messaging</div>
+            <div class="module-item">Document Management</div>
+            <div class="module-item">Human Capital Management</div>
+        </div>
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="image-container">
+        <img src="../../../assets/MaskGroup.png"  alt="Descriptive Image">
+    </div>
+    <div class="text-container">
+        <h1>We are Your One-Stop Partner for <br><span class="highlight">CargoWise</span></h1>
+        <p>Thank you for choosing Elicit Technology to enhance your logistics business. As a certified WiseTech Global Partner, we are delighted to assist you with our comprehensive expertise.</p>
+        <p>From implementation, integration, training, customization, and configuration to RPA, API, and ongoing support, we offer a wide range of support and services tailored to meet the needs of your maritime and air transportation business in freight forwarding.</p>
+        <p>In addition to our freight forwarding capabilities, we also provide company-wide solutions, including accounting, quoting, customs, inventory, and warehouse management. Our expertise extends across various business functions, ensuring that your operations are seamless and efficient. </p>
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="text-container">
+        <h1>Elicit’s Support and Service Capabilities </h1>
+        <ul>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> CargoWise One End to End Implementation </li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Documents, Reports, and Screen Customization</li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> CargoWise One Configuration </li>
+            <li class="custom-line-height"><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Integration with Oracle, SAP, Microsoft Dynamics (Dynamics 365,<br> AX, NAV, GP), EDI Systems, More </li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> RPA and API Solutions </li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> User Training & Support </li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Business Intelligence Solutions</li>
+        </ul>
+    </div>
+    <div class="image-container">
+        <img src="../../../assets/MaskGroup1.png"  alt="Descriptive Image">
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="image-container">
+        <img src="../../../assets/MaskGroup2.png"  alt="Descriptive Image">
+    </div>
+    <div class="text-container">
+        <h1>Our Module Specifications</h1>
+        <ul>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Freight Forwarding</li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Customs Clearance</li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Warehouse</li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Transport</li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Workflow and Task</li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Integration (Freight and Warehousing)</li>
+            <li><img src="../../../assets/Icon.svg" alt="Tick Icon" class="check-icon"> Accounting</li>
+        </ul>
+    </div>
+</section>
+
+<section class="stats-section">
+    <h2>Elicit is a widely trusted CargoWise<br> service partner</h2>
+    <div class="stats-container">
+        <div class="stat-item">
+            <h3>20+</h3>
+            <p>Successful <br>Implementations</p>
+        </div>
+        <div class="stat-item">
+            <h3>57+</h3>
+            <p>Countries <br>Supported</p>
+        </div>
+        <div class="stat-item">
+            <h3>12+</h3>
+            <p>CargoWise Certified <br>Professionals</p>
+        </div>
+        <div class="stat-item">
+            <h3>25+</h3>
+            <p>Years in the <br>Industry</p>
+        </div>
+    </div>
+</section>
+
+<section class="backgroundImg1">
+    <div class="backgroundImg">
+        <div class="backgroundImg-content">
+            <p>Ready to streamline your logistics <br>Want to get the most of your <br>CargoWise One ERP?</p>
+        </div>
+        <div class="button-container">
+            <button class="call-button">Book a Call</button>
+    </div>
+</div>
+</section>
+
+<section class="email-container">
+    <div class="email-text">
+        <a href="mailto:support@elicittechnology.com">support@elicittechnology.com</a>
+    </div>
+</section>
+
+
+</body>
+</html>
